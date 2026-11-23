@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>卢倩莹 Lulu — LU STUDIO · 复古互动工作室</title>
+  <meta
+    name="description"
+    content="卢倩莹 Lulu — 营销 × 运营 × 记者。进入复古互动工作台：翻阅中央工作笔记本、切换电视 Campaign 频道、阅读墙面报道大报、浏览双层书架与敲击打字机留言。"
+  />
+  <meta name="theme-color" content="#0f0d0b" />
+
+  <!-- Preload primary hero render & hotspot manifest for <650ms studio boot -->
+  <link rel="preload" as="image" href="./assets/scene/hero_lamp_on_v4.png" fetchpriority="high" />
+  <link rel="preload" as="fetch" href="./assets/scene/scene_hotspots.json" crossorigin="anonymous" />
+
+  <!-- Editorial, Tech Library & Archival Typography (Instrument Serif + Inter Tight + IBM Plex Mono + Noto Serif SC) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=Inter+Tight:wght@400;500;600;700&family=Noto+Serif+SC:wght@500;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <!-- 5-Station Tactile Inspection Engine Styles + Living 3D/2.5D Room Stage Styles -->
+  <link rel="stylesheet" href="./studio-overlays.css?v=14" />
+  <link rel="stylesheet" href="./studio-room.css?v=8" />
+
+  <!-- Let studio-room.js coordinate HUD & camera fly-to callbacks cleanly -->
+  <script>
+    window.LULU_STUDIO_MANUAL_INIT = true;
+  </script>
+</head>
+<body class="lu-room-body is-booting" data-lamp="on">
+  <!-- ======================================================================
+       FAST CRT / ARCHIVAL STUDIO BOOT CURTAIN (<650ms)
+       ====================================================================== -->
+  <div class="lu-room-preloader" id="luRoomPreloader" role="status" aria-live="polite">
+    <div class="lu-preloader-box">
+      <div class="lu-preloader-top">
+        <span class="lu-preloader-code">LU STUDIO // ROOM 01</span>
+        <span class="lu-preloader-channel">ARCHIVE DESK · 16:9</span>
+      </div>
+      <div class="lu-preloader-track" aria-hidden="true">
+        <div class="lu-preloader-fill" id="luPreloaderFill"></div>
+      </div>
+      <div class="lu-preloader-sub">
+        <span>卢倩莹 Lulu · 营销 × 运营 × 记者</span>
+        <span id="luPreloaderPct">BOOT</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================================================================
+       MINIMAL FELIX-INSPIRED PERSISTENT TOP HUD
+       ====================================================================== -->
+  <header class="lu-room-hud-top" id="luRoomHudTop" aria-label="工作室顶部导航">
+    <div class="lu-room-hud-left">
+      <button
+        type="button"
+        class="lu-room-brand"
+        id="luBrandHomeBtn"
+        title="返回复古工作室桌面全景"
+      >
+        <span class="lu-room-brand-en">LU STUDIO</span>
+        <span class="lu-room-brand-sep" aria-hidden="true">·</span>
+        <span class="lu-room-brand-cn">卢倩莹</span>
+      </button>
+
+      <button
+        type="button"
+        class="lu-room-back-btn"
+        id="luBackToDeskBtn"
+        aria-label="返回工作台全景 (ESC)"
+        hidden
+      >
+        <span aria-hidden="true">←</span>
+        <span>Back to Desk</span>
+        <kbd>ESC</kbd>
+      </button>
+    </div>
+
+    <nav class="lu-room-nav" id="luRoomTopNav" aria-label="五个工作室区域导航">
+      <button type="button" class="lu-room-nav-link" data-room-nav="notebook">ABOUT</button>
+      <span class="lu-room-nav-dot" aria-hidden="true">·</span>
+      <button type="button" class="lu-room-nav-link" data-room-nav="tv">MARKETING</button>
+      <span class="lu-room-nav-dot" aria-hidden="true">·</span>
+      <button type="button" class="lu-room-nav-link" data-room-nav="newspaper">JOURNALISM</button>
+      <span class="lu-room-nav-dot" aria-hidden="true">·</span>
+      <button type="button" class="lu-room-nav-link" data-room-nav="shelf">SHELF</button>
+      <span class="lu-room-nav-dot" aria-hidden="true">·</span>
+      <button type="button" class="lu-room-nav-link" data-room-nav="typewriter">CONTACT</button>
+      <span class="lu-room-nav-dot" aria-hidden="true">·</span>
+
+      <!-- Compact Felix-style Top-Bar Edition Switcher (A / B / C) -->
+      <div class="lu-top-edition-switch" id="luEditionDock" role="group" aria-label="切换交互版本">
+        <button
+          type="button"
+          class="lu-top-ed-btn is-active"
+          data-edition-btn="a"
+          aria-pressed="true"
+          title="A · 物化直觉器物版 (Felix × Taliahhh)"
+        >A</button>
+        <button
+          type="button"
+          class="lu-top-ed-btn"
+          data-edition-btn="b"
+          aria-pressed="false"
+          title="B · 90s 复古系统多窗口版 (Poolsuite × Classic Mac OS)"
+        >B</button>
+        <button
+          type="button"
+          class="lu-top-ed-btn"
+          data-edition-btn="c"
+          aria-pressed="false"
+          title="C · 瑞士印相页目录版 (Cosmos × Standards Manual)"
+        >C</button>
+      </div>
+
+      <!-- Compact mobile lamp switch right inside mobile top bar -->
+      <button
+        type="button"
+        class="lu-mobile-lamp-mini"
+        id="luMobileLampBtn"
+        aria-pressed="true"
+        aria-label="切换台灯开关"
+        title="切换台灯灯光 (L)"
+      >
+        <span class="lu-lamp-bulb-dot" aria-hidden="true"></span>
+        <span id="luMobileLampLabel">LAMP ON</span>
+      </button>
+    </nav>
+  </header>
+
+  <!-- ======================================================================
+       DESKTOP INTERACTIVE 3D/2.5D LIVING STUDIO VIEWPORT (> 820px)
+       ====================================================================== -->
+  <main class="lu-room-viewport" id="luRoomViewport" aria-label="Lulu 复古互动工作台全景">
+    <!-- Outer inertia parallax wrapper (±10px damped rAF cursor parallax) -->
+    <div class="lu-parallax-rig" id="luParallaxRig">
+      <!-- Exact 16:9 cover stage frame: locks hero renders, canvas & hotspots in 1:1 sync -->
+      <div class="lu-room-frame" id="luRoomFrame">
+        <!-- Base Raytraced Studio Layer (Lamp ON) -->
+        <img
+          class="lu-hero-img lu-hero-on"
+          id="luHeroLampOn"
+          src="./assets/scene/hero_lamp_on_v4.png"
+          alt="Lulu 复古互动工作室桌面全景：中央工作笔记本、复古电视机、墙面报纸、双层胡桃木书架与机械打字机"
+          width="2560"
+          height="1440"
+          decoding="async"
+          draggable="false"
+        />
+
+        <div class="lu-room-book-titles" aria-hidden="true"></div>
+
+        <!-- Lamp OFF uses the same bright-scene geometry with the CSS night-light fallback -->
+        <img
+          class="lu-hero-img lu-hero-off"
+          id="luHeroLampOff"
+          alt=""
+          width="2560"
+          height="1440"
+          decoding="async"
+          draggable="false"
+          aria-hidden="true"
+          hidden
+        />
+
+        <!-- Sculpted CSS Night-Moonlight Dim Fallback -->
+        <div class="lu-lamp-fallback-dim" id="luLampFallbackDim" aria-hidden="true"></div>
+
+        <!-- Lightweight 60fps Atmospheric Overlay Canvas (Window Rain + Lamp Dust Motes + CRT Scanline Shimmer) -->
+        <canvas
+          class="lu-atmosphere-canvas"
+          id="luAtmosphereCanvas"
+          width="1280"
+          height="720"
+          aria-hidden="true"
+        ></canvas>
+
+        <!-- Tactile Spatial Hotspots Layer (populated dynamically from scene_hotspots.json) -->
+        <div
+          class="lu-hotspot-layer"
+          id="luHotspotLayer"
+          role="group"
+          aria-label="桌面可互动区域"
+        ></div>
+      </div>
+    </div>
+
+    <!-- Dedicated Raytraced Close-Up Backdrop (cam_<station>.jpg crossfades in during camera zoom) -->
+    <div class="lu-closeup-backdrop" id="luCloseupBackdrop" aria-hidden="true">
+      <img
+        class="lu-closeup-img"
+        id="luCloseupImg"
+        src="./assets/scene/cam_notebook.jpg"
+        alt=""
+        decoding="async"
+        draggable="false"
+      />
+      <div class="lu-closeup-vignette"></div>
+    </div>
+
+    <!-- Subtle Cinematic Edge Vignette -->
+    <div class="lu-room-vignette" aria-hidden="true"></div>
+  </main>
+
+  <!-- ======================================================================
+       MOBILE VERTICAL STUDIO EXPLORATION SEQUENCE (<= 820px, Section 11)
+       ====================================================================== -->
+  <section
+    class="lu-mobile-studio"
+    id="luMobileStudio"
+    aria-label="移动端纵向复古工作室探索"
+  >
+    <!-- Panorama Studio Window Header -->
+    <div class="lu-mobile-hero-card">
+      <div class="lu-mobile-hero-media">
+        <img
+          class="lu-mobile-hero-on"
+          src="./assets/scene/hero_lamp_on_v4.png"
+          alt="Lulu 复古互动工作台全景"
+          loading="eager"
+          decoding="async"
+        />
+        <img
+          class="lu-mobile-hero-off"
+          id="luMobileHeroLampOff"
+          alt=""
+          aria-hidden="true"
+          hidden
+        />
+        <div class="lu-room-book-titles" aria-hidden="true"></div>
+        <div class="lu-mobile-hero-dim" aria-hidden="true"></div>
+        <div class="lu-mobile-hero-badge">LU STUDIO // ROOM 01</div>
+      </div>
+
+      <div class="lu-mobile-hero-copy">
+        <p class="lu-mobile-eyebrow">INTERACTIVE ARCHIVE STUDIO · 复古互动工作室</p>
+        <h1 class="lu-mobile-title">卢倩莹 <span>Lulu</span></h1>
+        <p class="lu-mobile-role">营销 × 运营 × 记者</p>
+        <p class="lu-mobile-desc">
+          我做海外 KOL 运营与内容策划，也做过记者。向下依次探索工作室里的五件器物，点击即可进入对应档案与互动体验。
+        </p>
+      </div>
+    </div>
+
+    <!-- 5 Sequential Raytraced Station Cards (Notebook -> TV -> Newspaper -> Shelf -> Typewriter) -->
+    <div class="lu-mobile-station-list" id="luMobileStationList">
+      <!-- 01: Central Notebook -->
+      <article class="lu-m-card">
+        <button type="button" class="lu-m-card-trigger" data-room-nav="notebook">
+          <div class="lu-m-card-img-wrap">
+            <img src="./assets/scene/cam_notebook.jpg" alt="中央工作笔记本特写" loading="lazy" decoding="async" />
+            <span class="lu-m-card-index">01 · DESK CENTER</span>
+          </div>
+          <div class="lu-m-card-body">
+            <div class="lu-m-card-kicker">ABOUT / 自我介绍</div>
+            <h2 class="lu-m-card-heading">中央笔记本 · 工作档案与履历</h2>
+            <p class="lu-m-card-summary">翻开皮质笔记本，查看拍立得档案照、个人介绍与完整职业时间线。</p>
+            <span class="lu-m-card-cta">翻开工作笔记本 <span aria-hidden="true">→</span></span>
+          </div>
+        </button>
+      </article>
+
+      <!-- 02: Retro CRT TV -->
+      <article class="lu-m-card">
+        <button type="button" class="lu-m-card-trigger" data-room-nav="tv">
+          <div class="lu-m-card-img-wrap">
+            <img src="./assets/scene/cam_tv.jpg" alt="SVGA 创作者放映台特写" loading="lazy" decoding="async" />
+            <span class="lu-m-card-index">02 · SVGA CONSOLE</span>
+          </div>
+          <div class="lu-m-card-body">
+            <div class="lu-m-card-kicker">01 / MARKETING WORK</div>
+            <h2 class="lu-m-card-heading">放映台 · 海外红人营销 Campaign</h2>
+            <p class="lu-m-card-summary">切换 Seedance 2.5 · Kimi K3 · MiniMax M3.1，一屏展示并直接内嵌播放全部红人视频。</p>
+            <span class="lu-m-card-cta">打开创作者放映台 <span aria-hidden="true">→</span></span>
+          </div>
+        </button>
+      </article>
+
+      <!-- 03: Wall Newspaper -->
+      <article class="lu-m-card">
+        <button type="button" class="lu-m-card-trigger" data-room-nav="newspaper">
+          <div class="lu-m-card-img-wrap">
+            <img src="./assets/scene/cam_newspaper.jpg" alt="墙面报纸特写" loading="lazy" decoding="async" />
+            <span class="lu-m-card-index">03 · WALL BROADSHEET</span>
+          </div>
+          <div class="lu-m-card-body">
+            <div class="lu-m-card-kicker">02 / JOURNALISM</div>
+            <h2 class="lu-m-card-heading">报纸 · 记者作品全集（共 10 篇）</h2>
+            <p class="lu-m-card-summary">一页纸通览《连线 Insight》《时代周报》与《北京青年报》全部 10 篇商业与社会深度报道。</p>
+            <span class="lu-m-card-cta">展开报纸阅读 <span aria-hidden="true">→</span></span>
+          </div>
+        </button>
+      </article>
+
+      <!-- 04: Two-Tier Walnut Shelf -->
+      <article class="lu-m-card">
+        <button type="button" class="lu-m-card-trigger" data-room-nav="shelf">
+          <div class="lu-m-card-img-wrap">
+            <img src="./assets/shelf/shelf-preview-v3.jpg" alt="双层胡桃木书架特写" loading="lazy" decoding="async" />
+            <span class="lu-m-card-index">04 · WALNUT RACK</span>
+          </div>
+          <div class="lu-m-card-body">
+            <div class="lu-m-card-kicker">03 / SHELF</div>
+            <h2 class="lu-m-card-heading">两层书架 · 书籍、黑胶与拍立得相册</h2>
+            <p class="lu-m-card-summary">查看《增长黑客》《何为良好生活》《念念远山》、三张挚爱黑胶与手翻摄影相册。</p>
+            <span class="lu-m-card-cta">浏览书架藏品 <span aria-hidden="true">→</span></span>
+          </div>
+        </button>
+      </article>
+
+      <!-- 05: Mechanical Typewriter -->
+      <article class="lu-m-card">
+        <button type="button" class="lu-m-card-trigger" data-room-nav="typewriter">
+          <div class="lu-m-card-img-wrap">
+            <img src="./assets/scene/cam_typewriter.jpg" alt="机械打字机特写" loading="lazy" decoding="async" />
+            <span class="lu-m-card-index">05 · CORRESPONDENCE</span>
+          </div>
+          <div class="lu-m-card-body">
+            <div class="lu-m-card-kicker">04 / CONTACT</div>
+            <h2 class="lu-m-card-heading">打字机 · 访客留言与邮件联系</h2>
+            <p class="lu-m-card-summary">欢迎给我留言！：）在信纸上写下署名与话语，体验折信盖戳或直接发信。</p>
+            <span class="lu-m-card-cta">敲击信纸留言盖章 <span aria-hidden="true">→</span></span>
+          </div>
+        </button>
+      </article>
+
+    </div>
+
+    <footer class="lu-mobile-footer">
+      <div class="lu-mobile-footer-line">LU STUDIO · 卢倩莹 Lulu</div>
+      <a class="lu-mobile-mail-link" href="mailto:louiselu671@gmail.com">louiselu671@gmail.com</a>
+    </footer>
+  </section>
+
+  <!-- Main Room Host & Atmospheric Engine (imports studio-overlays.js) -->
+  <script type="module" src="./studio-room.js?v=31"></script>
+</body>
+</html>
