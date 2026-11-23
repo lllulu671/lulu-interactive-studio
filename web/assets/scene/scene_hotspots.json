@@ -1,0 +1,256 @@
+{
+  "hero_resolution": [
+    2560,
+    1440
+  ],
+  "hero_lamp_on": "hero_lamp_on_v2.png",
+  "hero_lamp_off": "hero_lamp_off_v2.png",
+  "coordinate_space": "normalized_top_left_0_to_1",
+  "camera": {
+    "name": "Cam_Hero_Master",
+    "location": [
+      -0.01,
+      -2.08,
+      1.25
+    ],
+    "rotation_euler_deg": [
+      84.05,
+      -0.0,
+      0.0
+    ],
+    "focal_length_mm": 35.0
+  },
+  "hotspots": {
+    "notebook": {
+      "label": "About / 自我介绍",
+      "collection": "Hotspot_01_Notebook",
+      "closeup_render": "cam_notebook.jpg",
+      "bbox_top_left": [
+        0.3947,
+        0.7088,
+        0.5903,
+        0.818
+      ],
+      "center_top_left": [
+        0.4925,
+        0.7634
+      ],
+      "bbox_css_pct": {
+        "left": "39.47%",
+        "top": "70.88%",
+        "width": "19.57%",
+        "height": "10.92%"
+      },
+      "world_bounds": {
+        "min": [
+          -0.1996,
+          -0.3801,
+          0.7502
+        ],
+        "max": [
+          0.1651,
+          -0.0217,
+          0.7931
+        ]
+      }
+    },
+    "tv": {
+      "label": "01 / Marketing Work",
+      "collection": "Hotspot_02_TV",
+      "closeup_render": "cam_tv.jpg",
+      "bbox_top_left": [
+        0.1874,
+        0.438,
+        0.355,
+        0.7402
+      ],
+      "center_top_left": [
+        0.2712,
+        0.5891
+      ],
+      "bbox_css_pct": {
+        "left": "18.74%",
+        "top": "43.80%",
+        "width": "16.75%",
+        "height": "30.21%"
+      },
+      "world_bounds": {
+        "min": [
+          -0.686,
+          -0.0855,
+          0.7503
+        ],
+        "max": [
+          -0.327,
+          0.2713,
+          1.1
+        ]
+      }
+    },
+    "newspaper": {
+      "label": "02 / Journalism",
+      "collection": "Hotspot_03_Newspaper",
+      "closeup_render": "cam_newspaper.jpg",
+      "bbox_top_left": [
+        0.67,
+        0.04,
+        0.995,
+        0.51
+      ],
+      "center_top_left": [
+        0.8325,
+        0.275
+      ],
+      "bbox_css_pct": {
+        "left": "67%",
+        "top": "4%",
+        "width": "32.5%",
+        "height": "47%"
+      },
+      "world_bounds": {
+        "min": [
+          -0.3459,
+          0.4333,
+          0.9666
+        ],
+        "max": [
+          0.1574,
+          0.4369,
+          1.5952
+        ]
+      }
+    },
+    "shelf": {
+      "label": "03 / Shelf",
+      "collection": "Hotspot_04_Shelf",
+      "closeup_render": null,
+      "bbox_top_left": [
+        0.36,
+        0.34,
+        0.58,
+        0.70
+      ],
+      "center_top_left": [
+        0.47,
+        0.52
+      ],
+      "bbox_css_pct": {
+        "left": "36%",
+        "top": "34%",
+        "width": "22%",
+        "height": "36%"
+      },
+      "world_bounds": {
+        "min": [
+          0.1428,
+          0.0405,
+          0.7502
+        ],
+        "max": [
+          0.6072,
+          0.3671,
+          1.0651
+        ]
+      }
+    },
+    "typewriter": {
+      "label": "04 / Contact",
+      "collection": "Hotspot_05_Typewriter",
+      "closeup_render": "cam_typewriter.jpg",
+      "bbox_top_left": [
+        0.7817,
+        0.5841,
+        0.9785,
+        0.8231
+      ],
+      "center_top_left": [
+        0.8801,
+        0.7036
+      ],
+      "bbox_css_pct": {
+        "left": "78.17%",
+        "top": "58.41%",
+        "width": "19.68%",
+        "height": "23.90%"
+      },
+      "world_bounds": {
+        "min": [
+          0.5452,
+          -0.3671,
+          0.7373
+        ],
+        "max": [
+          0.9439,
+          -0.018,
+          0.9418
+        ]
+      }
+    },
+    "lamp": {
+      "label": "Toggle Studio Desk Lamp",
+      "collection": "Hotspot_06_Lamp",
+      "closeup_render": null,
+      "bbox_top_left": [
+        0.1214,
+        0.2724,
+        0.1985,
+        0.754
+      ],
+      "center_top_left": [
+        0.1599,
+        0.5132
+      ],
+      "bbox_css_pct": {
+        "left": "12.14%",
+        "top": "27.24%",
+        "width": "7.71%",
+        "height": "48.15%"
+      },
+      "world_bounds": {
+        "min": [
+          -0.8575,
+          -0.0726,
+          0.6831
+        ],
+        "max": [
+          -0.6662,
+          0.4142,
+          1.307
+        ]
+      }
+    },
+    "poster": {
+      "label": "Working Principles / 价值观信条",
+      "collection": "Hotspot_07_Poster",
+      "closeup_render": "cam_poster.jpg",
+      "bbox_top_left": [
+        0.6847,
+        0.0858,
+        0.8304,
+        0.4172
+      ],
+      "center_top_left": [
+        0.7575,
+        0.2515
+      ],
+      "bbox_css_pct": {
+        "left": "68.47%",
+        "top": "8.58%",
+        "width": "14.56%",
+        "height": "33.14%"
+      },
+      "world_bounds": {
+        "min": [
+          0.4629,
+          0.4341,
+          1.1089
+        ],
+        "max": [
+          0.8338,
+          0.4366,
+          1.5822
+        ]
+      }
+    }
+  }
+}
